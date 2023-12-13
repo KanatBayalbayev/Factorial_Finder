@@ -32,13 +32,13 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.mainViewModelState.observe(this){
             when(it){
                 is ViewModelState.Loading -> {
-                    Log.d("MainActivity", "Loading...")
+                    Log.d("TestFor", "Loading...")
                 }
                 is ViewModelState.Error -> {
-                    Log.d("MainActivity", "Error...")
+                    Log.d("TestFor", "Error...")
                 }
                 is ViewModelState.FactorialNumber -> {
-                    Log.d("MainActivity", "The result is ${it.factorialNumber}")
+                    Log.d("TestFor", "The result is ${it.factorialNumber}")
                 }
             }
         }
