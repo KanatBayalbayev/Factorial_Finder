@@ -2,6 +2,7 @@ package com.qanatdev.factorialfinder.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.qanatdev.factorialfinder.MainApp
@@ -28,8 +29,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        lifecycleScope.launch {
-            mainViewModel.getFactorialNumber(3)
+        mainViewModel.mainViewModelState.observe(this){
+            when(it){
+                is ViewModelState.Loading -> {
+                    Log.d("MainActivity", "Loading...")
+                }
+                is ViewModelState.Error -> {
+                    Log.d("MainActivity", "Error...")
+                }
+                is ViewModelState.FactorialNumber -> {
+                    Log.d("MainActivity", "The result is ${it.factorialNumber}")
+                }
+            }
         }
+        mainViewModel.getFactorialNumber("4")
     }
 }
