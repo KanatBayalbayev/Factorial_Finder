@@ -1,6 +1,5 @@
 package com.qanatdev.factorialfinder.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,21 +20,22 @@ class MainViewModel @Inject constructor(
 
 
     fun getFactorialNumber(userNumber: String?) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Main) {
             _mainViewModelState.value = ViewModelState.Loading
             if (userNumber.isNullOrBlank()) {
                 _mainViewModelState.value = ViewModelState.Error
                 return@launch
             }
             val number = userNumber.toLong()
-            val stringNumber = factorialNumber(number).toString()
-            _mainViewModelState.value = ViewModelState.FactorialNumber(stringNumber)
+            val foundNumber = factorialNumber(number)
+            val stringNum = foundNumber.toString()
+            _mainViewModelState.value = ViewModelState.FactorialNumber(stringNum)
         }
     }
 
     private suspend fun factorialNumber(number: Long): BigInteger {
         return withContext(Dispatchers.Default) {
-            findFactorialUseCase.findFactorial(number)
+            findFactorialUseCase(number)
         }
     }
 

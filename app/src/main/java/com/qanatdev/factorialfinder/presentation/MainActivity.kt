@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.qanatdev.factorialfinder.MainApp
 import com.qanatdev.factorialfinder.R
+import com.qanatdev.factorialfinder.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,24 +25,48 @@ class MainActivity : AppCompatActivity() {
         (application as MainApp).component
     }
 
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+        findFactorial()
+        observeMainViewModel()
 
-        mainViewModel.mainViewModelState.observe(this){
-            when(it){
-                is ViewModelState.Loading -> {
-                    Log.d("TestFor", "Loading...")
-                }
-                is ViewModelState.Error -> {
-                    Log.d("TestFor", "Error...")
-                }
-                is ViewModelState.FactorialNumber -> {
-                    Log.d("TestFor", "The result is ${it.factorialNumber}")
-                }
+
+    }
+    private fun findFactorial(){
+        with(binding){
+            buttonToFindFactorial.setOnClickListener {
+                val userInput = userInput.text.toString().trim()
+                mainViewModel.getFactorialNumber(userInput)
             }
         }
-        mainViewModel.getFactorialNumber("4")
     }
+    private fun observeMainViewModel(){
+        mainViewModel.mainViewModelState.observe(this){
+            with(binding){
+                when(it){
+                    is ViewModelState.Loading -> {
+                        Log.d("TestFor", "Loading...")
+                    }
+                    is ViewModelState.Error -> {
+                        Log.d("TestFor", "Error...")
+                    }
+                    is ViewModelState.FactorialNumber -> {
+                        Log.d("TestFor", "The result is ${it.factorialNumber}")
+                        result.text = it.factorialNumber
+                    }
+                }
+            }
+
+        }
+    }
+
+
+
+
 }

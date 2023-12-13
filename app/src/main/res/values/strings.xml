@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Factorial Finder</string>
+    <string name="find_factorial">Calculate</string>
 </resources>
