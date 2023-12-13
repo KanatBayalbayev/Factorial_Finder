@@ -14,7 +14,7 @@ class FactorialFinderImpl @Inject constructor() : FactorialFinder {
             result = result.multiply(BigInteger.valueOf(i))
 
         }
-        Log.d("MainViewModel", result.toString())
+
 
         return result
 
