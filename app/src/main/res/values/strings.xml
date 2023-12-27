@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">Factorial Finder</string>
-    <string name="find_factorial">Calculate</string>
+    <string name="app_name">Расчет Факториала</string>
+    <string name="find_factorial">Рассчитать</string>
+    <string name="welcome_text">Расчет Факториала</string>
+    <string name="welcome_text3">Быстро вычисляйте факториал любого числа. Просто введите нужное число, и мы мгновенно предоставим вам результат. Высокая эффективность и легкость использования – все, что вам нужно для быстрых вычислений факториала!</string>
+    <string name="arrowright">arrowright</string>
 </resources>
